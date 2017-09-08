@@ -1,0 +1,97 @@
+Testing in Go
+Techniques, tools and good practices in testing for Go
+7 Sep 2017
+Tags: testing, go, TDD, BDD, Ginkgo, Testify
+
+Ider Delzo
+Software Developer, PASTPRESENTFUTURE
+soloidx@gmail.com
+@soloidx
+
+* Introduction to TDD
+
+.image ./img/tdd-circle-of-life.png
+.caption image by [[http://agilenutshell.com]]
+
+* Simple test in Go
+
+The test:
+.code ./code/ex01/ex01_test.go /START OMIT/,/END OMIT/
+
+The code:
+.code ./code/ex01/ex01.go /START OMIT/,/END OMIT/
+
+The command:
+.play ./code/ex01/run.sh /START OMIT/,/END OMIT/
+
+* Checking a test case
+
+.code -numbers ./code/ex02/ex02_test.go
+
+Running...
+.play ./code/ex02/run.sh /START OMIT/,/END OMIT/
+
+* Pretty simple testing
+
+- (8) The `go` `test` command looks automatically for functions of the form
+  func TestMethodInCamelCase(*testing.T)
+
+- (13-15) When you have trigger a failed test you should call:
+  t.Error("Explanation of the error")
+
+*** Quick tip
+
+In a common scenario we only need to test the public interface, that's why we use a `package_test` format as a package name and we import the package and use it externally.
+
+* That's it!
+
+* #okno
+.image ./img/okno.png
+
+* Improving the assertions
+When writing tests has become a usual task is better to simplify the assertions of the test cases
+For this purpose, we can use external libraries like [[http://onsi.github.io/gomega/][Gomega]] or [[https://github.com/stretchr/testify][testify]]
+
+*** Example
+.code ./code/ex03/ex03.go
+
+* 
+*** Classic
+.code ./code/ex03/ex03_test.go /GO VERSION START OMIT/,/GO VERSION END OMIT/
+
+* 
+*** Testify
+.code ./code/ex03/ex03_test.go /TESTIFY START OMIT/,/TESTIFY  END OMIT/
+
+* 
+*** Gomega
+.code ./code/ex03/ex03_test.go /GOMEGA START OMIT/,/GOMEGA  END OMIT/
+
+* 
+*** Running
+.play ./code/ex03/run.sh /START OMIT/,/END OMIT/
+
+* Mocking
+We cannot cover the basics of testing without talking about mocks, there is not a simple way to mocking (because the nature of the language) but we can use interfaces to lose the coupling between dependencies
+
+.code ./code/ex04/ex0401/ex04_01.go /START OMIT/,/END OMIT/
+
+* 
+*** Improving the code
+.code ./code/ex04/ex0402/ex04_02.go /START OMIT/,/END OMIT/
+
+* 
+*** Making the test
+.code ./code/ex04/ex0402/ex04_02_test.go /START OMIT/,/END OMIT/
+.play ./code/ex04/run.sh /START OMIT/,/END OMIT/
+
+
+* And there is more...
+- Benchmark tests
+- Coverage
+- `httptest'
+- API functional tests
+- Ginkgo (BDD)
+
+* Example scenario: Programmer excuses
+We want to create an application that get excuses from the page [[http://programmingexcuses.com][programmingexcuses]]
